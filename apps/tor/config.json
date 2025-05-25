@@ -1,0 +1,36 @@
+{
+  "name": "Tor",
+  "id": "tor",
+  "available": true,
+  "short_desc": "Tor network proxy for anonymous browsing and network routing.",
+  "author": "dockurr",
+  "port": 9050,
+  "categories": [
+    "network",
+    "security"
+  ],
+  "description": "Tor is free software and an open network that helps protect against traffic analysis. This Docker container provides a Tor SOCKS proxy that can be used with SearXNG and other applications for anonymous network access. It includes SOCKS5 proxy (port 9050), DNS proxy (port 9053), and control port (9051) for advanced configuration.",
+  "tipi_version": 3,
+  "version": "latest",
+  "source": "https://github.com/dockurr/tor",
+  "website": "https://www.torproject.org/",
+  "exposable": false,
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1737823200000,
+  "updated_at": 1737823200000,
+  "dynamic_config": true,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Additional Tor Configuration",
+      "hint": "Custom Tor configuration options to append to torrc (optional). Example: 'StrictNodes 1'",
+      "required": false,
+      "env_variable": "TOR_CONFIG",
+      "default": ""
+    }
+  ],
+  "notes": "This Tor proxy can be used with SearXNG by configuring the proxy settings to use tor_container_name:9050 as SOCKS5 proxy. DNS queries can be routed through port 9053. The control port (9051) is available for advanced configuration with default password 'password'."
+}

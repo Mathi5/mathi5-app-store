@@ -1,0 +1,31 @@
+{
+  "services": [
+    {
+      "name": "tor",
+      "image": "dockurr/tor:latest",
+      "isMain": true,
+      "internalPort": 9050,
+      "environment": {
+        "TOR_CONFIG": "${TOR_CONFIG}"
+      },
+      "restart": "unless-stopped",
+      "healthcheck": {
+        "test": ["CMD", "nc", "-z", "localhost", "9050"],
+        "interval": "30s",
+        "timeout": "10s",
+        "retries": 3
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/data"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/torrc",
+          "containerPath": "/etc/tor/torrc",
+          "isFile": true
+        }
+      ]
+    }
+  ]
+}
