@@ -2,11 +2,12 @@
   "services": [
     {
       "name": "tor",
-      "image": "dockurr/tor:latest",
+      "image": "dperson/torproxy:latest",
       "isMain": true,
       "internalPort": 9050,
       "environment": {
-        "TOR_CONFIG": "${TOR_CONFIG}"
+        "TORUSER": "",
+        "TOR_EXTRA_OPTIONS": "${TOR_CONFIG}"
       },
       "restart": "unless-stopped",
       "healthcheck": {
@@ -18,12 +19,21 @@
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data",
-          "containerPath": "/data"
+          "containerPath": "/var/lib/tor"
+        }
+      ],
+      "ports": [
+        {
+          "containerPort": 9050,
+          "protocol": "tcp"
         },
         {
-          "hostPath": "${APP_DATA_DIR}/torrc",
-          "containerPath": "/etc/tor/torrc",
-          "isFile": true
+          "containerPort": 9051,
+          "protocol": "tcp"
+        },
+        {
+          "containerPort": 9053,
+          "protocol": "tcp"
         }
       ]
     }
